@@ -1,2 +1,2 @@
 # conFusion2
-# los archivos para los ejercicios de curso https://www.coursera.org/learn/angular-js
+# los archivos para los ejercicios del curso https://www.coursera.org/learn/angular-js
