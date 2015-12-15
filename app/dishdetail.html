@@ -28,6 +28,7 @@
     <div class="container">
         <div class="row row-content" ng-controller="dishDetailController as vm">
             <div class="col-xs-12">
+              <div class="media">            
                 <div class="media-left media-middle">
                     <a href="#">
                       <img class="media-object img-thumbnail" ng-src={{vm.dish.image}} alt="utahpizza">
@@ -41,17 +42,14 @@
                 </div>
               </div>
               <div class="col-xs-9 col-xs-offset-1">
-                <label >Customer Comments</label> Sort by: <input ng-model="orderProp">
-                  
-                <ul class="comments" ng-repeat="comment in vm.dish.comments | orderBy:orderProp">
-                    <blockquote>
+                <label>Customer Comments</label> Sort by: <input ng-model="vm.orderProp">
+                    <blockquote ng-repeat="comment in vm.dish.comments | orderBy:vm.orderProp">
                       <p>{{comment.rating}} stars</p>
                       <p>{{comment.comment}}</p>
-                      <footer>{{comment.author}}, {{comment.date | date}}
-                      </footer>
+                      <footer>{{comment.author}}, {{comment.date | date}}</footer>
                     </blockquote>
-              </ul>
               </div>
+            </div>
         </div>
     </div>
 
@@ -105,7 +103,7 @@
                     };
             
             this.dish = dish;
-            this.orderProp= 'author';
+            this.orderProp= '';
             
         });
 
