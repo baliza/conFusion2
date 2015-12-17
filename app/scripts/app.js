@@ -2,12 +2,15 @@
 
 angular
   .module('confusionApp',[])
-    .controller('menuController', function() {
+     .controller('MenuController', ['$scope', function($scope) {
         
+            $scope.showDetails = false;
+                         
+                                 
               this.tab = 1;
               this.filtText= '';
         
-              var dishes=[
+              this.dishes=[
                          {
                            name:'Uthapizza',
                            image: 'images/uthapizza.png',
@@ -45,8 +48,10 @@ angular
                            comment: ''
                         }
                     ];
-              this.dishes = dishes;
               
+            $scope.toggleDetails = function() {
+                $scope.showDetails = !$scope.showDetails;
+            };
               /*the tab setting */
               
               this.select = function(indx){
@@ -69,4 +74,4 @@ angular
               };
               
               
-        });
+        }]);
