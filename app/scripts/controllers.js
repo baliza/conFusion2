@@ -55,22 +55,28 @@ angular.module('confusionApp')
                         
         }])
 
-        .controller('FeedbackController', ['$scope', function($scope) {
-            
-            $scope.sendFeedback = function() {
-                
-                console.log($scope.feedback);
-                
+        .controller('FeedbackController', ['$scope', 'feedbackFactory', function($scope, feedbackFactory) {
+
+            $scope.sendFeedback = function() {                
+                console.log($scope.feedback);                
                 if ($scope.feedback.agree && ($scope.feedback.mychannel === "")) {
                     $scope.invalidChannelSelection = true;
-                    console.log('incorrect');
-                }
-                else {
-                    $scope.invalidChannelSelection = false;
-                    $scope.feedback = {mychannel:"", firstName:"", lastName:"", agree:false, email:"" };
-                    $scope.feedback.mychannel="";
-                    $scope.feedbackForm.$setPristine();
+                } else {
                     console.log($scope.feedback);
+                    //var feedbackEntry = feedbackFactory.resourceFeedback();            
+                    //feedbackEntry.save($scope.feedback)
+
+                    feedbackFactory.getFeedbacks().save($scope.feedback)
+                        .$promise.then(
+                            function(response){
+                                console.log('feedback saved');
+                                $scope.invalidChannelSelection = false;
+                                $scope.feedback = {mychannel:"", firstName:"", lastName:"", agree:false, email:"" };
+                                $scope.feedbackForm.$setPristine();
+                            },
+                            function(response){
+                                console.log("Error: "+response.status+". "+response.statusText);
+                            });
                 }
             };
         }])
